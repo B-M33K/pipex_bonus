@@ -6,7 +6,7 @@
 /*   By: obahi <obahi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:57:10 by obahi             #+#    #+#             */
-/*   Updated: 2023/01/25 22:17:53 by obahi            ###   ########.fr       */
+/*   Updated: 2023/01/29 00:53:55 by obahi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int main(int argc, char **argv, char **envp)
 	int		commands;
 	t_cmd	*cmd;
 	int		i;
-
-	commands = argc - 3;
-	i = -1;
+// ./pipex here_doc LIMITER cmd cmd1 file
 	if (argc >= 5)
 	{
+		commands = argc - 3;
+		i = -1;
 		ft_open(t, *(argv + 1), O_RDONLY, 0);
 		while (++i < commands)
 		{

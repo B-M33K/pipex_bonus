@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc.c                                         :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obahi <obahi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/25 22:30:57 by obahi             #+#    #+#             */
-/*   Updated: 2023/01/28 21:02:26 by obahi            ###   ########.fr       */
+/*   Created: 2023/01/25 22:31:27 by obahi             #+#    #+#             */
+/*   Updated: 2023/01/26 22:37:19 by obahi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"pipex.h"
+#include"libft.h"
 
-int	main(int argc, char **argv)
+char	*get_next_line(int fd)
 {
-	char	*limiter;
+	char	c[1];
 	char	*line;
 	char	*tmp;
-	int		n;
+	int		count;
 
-	if (argc == 2)
+	line = 0;
+	tmp = 0;
+	if (fd < 0 || read(fd, c, 0) < 0)
+		return (0);
+	count = read(fd, c, 1);
+	while (count > 0)
 	{
-		limiter = *(argv + 1);
-		n = ft_strlen(limiter);
-		line = get_next_line(0);
-		while (*(line + n) != '\n' || ft_strncmp(line, limiter, n))
-		{
-			ft_putstr_fd(line, 1);
-			tmp = line;
-			line = get_next_line(0);
-			if (tmp)
-				free(tmp);
-		}
-		free(line);
+		tmp = line;
+		line = ft_strjoin(line, c);
+		if (tmp)
+			free(tmp);
+		if (*c == '\n')
+			break;
+		count = read(fd, c, 1);
 	}
-	return (0);
+	return (line);
 }
