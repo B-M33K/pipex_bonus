@@ -6,7 +6,7 @@
 /*   By: obahi <obahi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 10:37:27 by obahi             #+#    #+#             */
-/*   Updated: 2023/01/21 10:37:30 by obahi            ###   ########.fr       */
+/*   Updated: 2023/01/29 01:17:55 by obahi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ void	ft_dup2(int i, int j)
 {
 	int	error;
 
-	error = dup2(i, j);
-	if (error == -1)
+	if (i - j)
 	{
-		perror("dup failed");
-		exit(1);
+		error = dup2(i, j);
+		if (error == -1)
+		{
+			perror("dup failed");
+			exit(1);
+		}
+		close(i);
 	}
-	close(i);
 }

@@ -6,7 +6,7 @@
 /*   By: obahi <obahi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 14:57:10 by obahi             #+#    #+#             */
-/*   Updated: 2023/01/29 00:53:55 by obahi            ###   ########.fr       */
+/*   Updated: 2023/01/29 01:42:50 by obahi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,18 @@ int main(int argc, char **argv, char **envp)
 	t_cmd	*cmd;
 	int		i;
 // ./pipex here_doc LIMITER cmd cmd1 file
+//     0       1       2     3   4     5
 	if (argc >= 5)
 	{
 		commands = argc - 3;
 		i = -1;
-		ft_open(t, *(argv + 1), O_RDONLY, 0);
+		if (!ft_strcmp(*(argv + 1), "here_doc"))
+		{
+			t[0] = 0;
+			cmd = ft_here_doc_cmd(*(argv + 1), *(argv + 2));
+		}
+		else
+			ft_open(t, *(argv + 1), O_RDONLY, 0);
 		while (++i < commands)
 		{
 			ft_dup2(t[0], 0);
@@ -32,9 +39,11 @@ int main(int argc, char **argv, char **envp)
 			else
 				ft_open(t + 1, *(argv + argc - 1), O_WRONLY | O_CREAT | O_TRUNC, 0777);	
 			ft_dup2(t[1], 1);
-			cmd = ft_initialize(envp, *(argv + 2 + i));
+			if (!cmd)
+				cmd = ft_initialize(envp, *(argv + 2 + i ));
 			ft_fork(cmd);
 			ft_clean(cmd);
+			cmd = 0;
 		}
 		ft_waitall(commands);
 		// while(1);

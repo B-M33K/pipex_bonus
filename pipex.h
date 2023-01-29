@@ -6,7 +6,7 @@
 /*   By: obahi <obahi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 21:32:46 by obahi             #+#    #+#             */
-/*   Updated: 2023/01/25 21:49:11 by obahi            ###   ########.fr       */
+/*   Updated: 2023/01/29 01:42:36 by obahi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_execve(t_cmd *cmd);
 void	ft_fork(t_cmd *cmd);
 // void	ft_fork(char **envp, char *argv, int out, int next_in);
 void	ft_free(char **ptr);
+t_cmd	*ft_here_doc_cmd(char *heredoc, char *limiter);
 t_cmd	*ft_initialize(char **envp, char *argv);
 void	ft_open(int *fd, char *path, int oflag, mode_t mode);
 char	**ft_path(char **envp);
